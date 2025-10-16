@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorites - Coffee & Matcha Co</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Coffee & Matcha Co</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html">Order Online</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="favorites.html" class="active">Favorites</a></li>
+            </ul>
+            <div class="cart-icon" aria-label="Shopping cart">
+                <span id="cart-count">0</span>
+                🛒
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 class="page-title">My Favorites</h1>
+        
+        <div id="favorites-container" class="menu-grid">
+            <!-- Favorite items will be dynamically loaded -->
+        </div>
+
+        <div id="empty-favorites" class="empty-state" style="display: none;">
+            <p>You haven't added any favorites yet.</p>
+            <a href="menu.html" class="btn btn-primary">Browse Menu</a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Coffee & Matcha Co. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
