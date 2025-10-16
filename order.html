@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Online - Coffee & Matcha Co</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">Coffee & Matcha Co</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="order.html" class="active">Order Online</a></li>
+                <li><a href="rewards.html">Rewards</a></li>
+                <li><a href="favorites.html">Favorites</a></li>
+            </ul>
+            <div class="cart-icon">
+                <span id="cart-count">0</span>
+                🛒
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1 class="page-title">Order Online</h1>
+        
+        <div class="order-container">
+            <div class="menu-section">
+                <h2>Select Items</h2>
+                <div class="menu-categories">
+                    <button class="category-btn active" data-category="all">All</button>
+                    <button class="category-btn" data-category="coffee">Coffee</button>
+                    <button class="category-btn" data-category="matcha">Matcha</button>
+                    <button class="category-btn" data-category="pastries">Pastries</button>
+                </div>
+                <div class="menu-grid" id="order-menu-items">
+                    <!-- Menu items will be dynamically loaded -->
+                </div>
+            </div>
+
+            <div class="cart-section">
+                <h2>Your Cart</h2>
+                <div id="cart-items">
+                    <p class="empty-cart">Your cart is empty</p>
+                </div>
+                <div class="cart-total">
+                    <strong>Total: $<span id="cart-total">0.00</span></strong>
+                </div>
+                <button class="btn btn-primary btn-block" id="checkout-btn" disabled>Checkout</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Coffee & Matcha Co. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
