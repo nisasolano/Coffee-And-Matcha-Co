@@ -128,7 +128,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize page-specific functionality
     const currentPage = window.location.pathname.split('/').pop();
     
-    if (currentPage === 'menu.html' || currentPage === '') {
+    if (currentPage === 'menu.html') {
         initMenuPage();
     } else if (currentPage === 'order.html') {
         initOrderPage();
@@ -136,6 +136,8 @@ document.addEventListener('DOMContentLoaded', function() {
         initRewardsPage();
     } else if (currentPage === 'favorites.html') {
         initFavoritesPage();
+    } else if (currentPage === '' || currentPage === 'index.html') {
+        // Home page - no additional initialization needed
     }
 });
 
@@ -159,17 +161,17 @@ function displayMenuItems(category = 'all') {
     // Add event listeners to buttons
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             addToCart(itemId);
         });
     });
     
     document.querySelectorAll('.favorite-btn').forEach(btn => {
-        const itemId = parseInt(btn.dataset.itemId);
+        const itemId = parseInt(btn.dataset.itemId, 10);
         updateFavoriteButton(btn, itemId);
         
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             toggleFavorite(itemId);
             updateFavoriteButton(this, itemId);
         });
@@ -218,8 +220,12 @@ function getCart() {
 }
 
 function saveCart(cart) {
-    localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
-    updateCartCount();
+    try {
+        localStorage.setItem(STORAGE_KEYS.CART, JSON.stringify(cart));
+        updateCartCount();
+    } catch (e) {
+        showNotification('Unable to save cart. Please check your browser settings.');
+    }
 }
 
 function addToCart(itemId) {
@@ -303,17 +309,17 @@ function displayOrderMenuItems(category = 'all') {
     // Add event listeners
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             addToCart(itemId);
         });
     });
     
     document.querySelectorAll('.favorite-btn').forEach(btn => {
-        const itemId = parseInt(btn.dataset.itemId);
+        const itemId = parseInt(btn.dataset.itemId, 10);
         updateFavoriteButton(btn, itemId);
         
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             toggleFavorite(itemId);
             updateFavoriteButton(this, itemId);
         });
@@ -362,7 +368,8 @@ function checkout() {
     const cart = getCart();
     if (cart.length === 0) return;
     
-    alert('Order placed successfully! Total: $' + cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2));
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0).toFixed(2);
+    showNotification('Order placed successfully! Total: $' + total);
     
     // Clear cart
     localStorage.removeItem(STORAGE_KEYS.CART);
@@ -377,7 +384,11 @@ function getFavorites() {
 }
 
 function saveFavorites(favorites) {
-    localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(favorites));
+    try {
+        localStorage.setItem(STORAGE_KEYS.FAVORITES, JSON.stringify(favorites));
+    } catch (e) {
+        showNotification('Unable to save favorites. Please check your browser settings.');
+    }
 }
 
 function toggleFavorite(itemId) {
@@ -437,17 +448,17 @@ function displayFavorites() {
     // Add event listeners
     document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             addToCart(itemId);
         });
     });
     
     document.querySelectorAll('.favorite-btn').forEach(btn => {
-        const itemId = parseInt(btn.dataset.itemId);
+        const itemId = parseInt(btn.dataset.itemId, 10);
         updateFavoriteButton(btn, itemId);
         
         btn.addEventListener('click', function() {
-            const itemId = parseInt(this.dataset.itemId);
+            const itemId = parseInt(this.dataset.itemId, 10);
             toggleFavorite(itemId);
             displayFavorites(); // Refresh the display
         });
@@ -510,7 +521,11 @@ function getRewards() {
 }
 
 function saveRewards(rewards) {
-    localStorage.setItem(STORAGE_KEYS.REWARDS, JSON.stringify(rewards));
+    try {
+        localStorage.setItem(STORAGE_KEYS.REWARDS, JSON.stringify(rewards));
+    } catch (e) {
+        showNotification('Unable to save rewards. Please check your browser settings.');
+    }
 }
 
 // Notification System
